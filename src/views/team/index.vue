@@ -76,7 +76,7 @@
 	
   
   <el-form-item label="客服A-客服贡献比例">
-  	<p>{{ this.maoli_a/this.maoli * 100 + '%' }}</p>
+  	<p>{{ percent_a * 1000/10 + '%' }}</p>
   </el-form-item>
 	
 	<el-form-item label="客服A提成">
@@ -148,14 +148,14 @@ export default {
         kousui,
 
 
-        income_notSortware: '', //非软件总业绩，  手动输入
-        income_sortware: '',  //软件总业绩，  手动输入
+        income_notSortware: 0, //非软件总业绩，  手动输入
+        income_sortware: 0,  //软件总业绩，  手动输入
 
         maoli: '',    //总毛利
         maoli_notSoftware: '',  //非软件毛利
         maoli_software: '',     //软件毛利
 
-        lastmon_output_money: '', //上月支出成本
+        lastmon_output_money: 0, //上月支出成本
         yingli_lirun: '', //营业利润
 
         ticheng_team: '', // 客服团队提成
@@ -166,8 +166,8 @@ export default {
         percent_a: '',  //客服A贡献比例
         ticheng_a: '',  //客服a提成
 
-        income_notSortware_a: '',   //客服a-非软件总业绩，手动输入
-        income_sortware_a: '',    //客服a-软件总业绩，手动输入
+        income_notSortware_a: 0,   //客服a-非软件总业绩，手动输入
+        income_sortware_a: 0,    //客服a-软件总业绩，手动输入
 
         lirun_hehuoren: '',
         fenhong_yunying: '',
