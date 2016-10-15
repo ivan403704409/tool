@@ -2,5 +2,6 @@
 node_modules/
 dist/
 *.zip
+tool.zip
 npm-debug.log
 
