@@ -140,134 +140,142 @@ const percentSortware = [
 const getPercentNotSortware = getPercent(percentNotSortfare)
 const getPercentSortware = getPercent(percentSortware)
 
-  export default {
-    data() {
+// 扣税
+const kousui = 0.07
+export default {
+  data() {
       return {
-        maoli: '',
-        maoli_a: '',
-        maoli_notSoftware_a: '',
-        maoli_software_a: '',
+        kousui,
 
-        maoli_notSoftware: '',
-        maoli_software: '',
 
-        income_notSortware: '',
-        income_sortware: '',
+        income_notSortware: '', //非软件总业绩，  手动输入
+        income_sortware: '',  //软件总业绩，  手动输入
 
-        // 客服团队提成
-        ticheng_team: '',
-        ticheng_a: '',
-        income_notSortware_a: '',
-        income_sortware_a: '',
+        maoli: '',    //总毛利
+        maoli_notSoftware: '',  //非软件毛利
+        maoli_software: '',     //软件毛利
+
+        lastmon_output_money: '', //上月支出成本
+        yingli_lirun: '', //营业利润
+
+        ticheng_team: '', // 客服团队提成
+
+        maoli_a: '',  //客服a总毛利
+        maoli_notSoftware_a: '',  //客服a非软件毛利
+        maoli_software_a: '',     //客服a软件毛利
+        percent_a: '',  //客服A贡献比例
+        ticheng_a: '',  //客服a提成
+
+        income_notSortware_a: '',   //客服a-非软件总业绩，手动输入
+        income_sortware_a: '',    //客服a-软件总业绩，手动输入
+
         lirun_hehuoren: '',
         fenhong_yunying: '',
         fenhong_cto: '',
         lirun_rest: '',
         yusuan_nextmonth: '',
-        percent_a: '',
-        lastmon_output_money: '',
-        yingli_lirun: '',
+        
         curPercent_notSortfare: '',
         curPercent_sortfare: '',
       }
     },
-    computed:{
-      // 
-      curPercent_notSortfare(){
+    computed: {
+      // 当前非软件的比例
+      curPercent_notSortfare() {
         return getPercentNotSortware(+this.income_notSortware)
       },
-      // 
-      curPercent_sortfare(){
+      // 当前软件的比例
+      curPercent_sortfare() {
         return getPercentSortware(+this.income_sortware)
       },
-    	//        非软件毛利润 = 非软件总业绩*比例（根据软件总业绩去判断是多少提成比例）- 扣税（（非软件总业绩*比例-非软件总业绩*比例*7%）*7%）
-    	maoli_notSoftware(){
-    		let num = (+this.income_notSortware) * this.curPercent_notSortfare
-    		return num - (num - num*0.07)*0.07
-    	},
-    	
-    	// 软件毛利润=软件总业绩*比例（根据软件总业绩去判断是多少提成比例）- 扣税（（软件总业绩*比例-软件总业绩*比例*7%）*7%）
-    	maoli_software(){
-    		let num = (+this.income_sortware) * this.curPercent_sortfare
-    		return num - (num - num*0.07)*0.07
-    	},	
-    	
-    	// 合计毛利润=非软件毛利润 + 软件毛利润
-    	maoli(){
-    		return this.maoli_notSoftware + this.maoli_software
-    	},
+      //        非软件毛利润 = 非软件总业绩*比例（根据软件总业绩去判断是多少提成比例）- 扣税（（非软件总业绩*比例-非软件总业绩*比例*7%）*7%）
+      maoli_notSoftware() {
+        let num = (+this.income_notSortware) * this.curPercent_notSortfare
+        return num - (num - num * this.kousui) * this.kousui
+      },
 
-    	// 营业利润=合计毛利润-上月支出成本
-    	yingli_lirun(){
-    		return this.maoli - this.lastmon_output_money
-    	},
+      // 软件毛利润=软件总业绩*比例（根据软件总业绩去判断是多少提成比例）- 扣税（（软件总业绩*比例-软件总业绩*比例*7%）*7%）
+      maoli_software() {
+        let num = (+this.income_sortware) * this.curPercent_sortfare
+        return num - (num - num * this.kousui) * this.kousui
+      },
 
-    	// 客服团队提成=营业利润*30%
-    	ticheng_team(){
-    		return this.yingli_lirun*0.3
-    	},
+      // 合计毛利润=非软件毛利润 + 软件毛利润
+      maoli() {
+        return this.maoli_notSoftware + this.maoli_software
+      },
 
-    	// 客服A非软件毛利润=客服A非软件总业绩*比例（和第三个提成比例一样）- 扣税（（客服A非软件总业绩*比例（和第三个提成比例一样）-非软件总业绩*比例（和第三个提成比例一样）*7%）*7%）
-    	maoli_notSoftware_a(){
-    		// 非软件总业绩*比例（根据软件总业绩去判断是多少提成比例）- 扣税（（非软件总业绩*比例-非软件总业绩*比例*7%）*7%）
-    		let num = (+this.income_notSortware_a) * getPercentNotSortware(+this.income_notSortware_a)
-    		return num - (num - num*0.07)*0.07
-    	},
+      // 营业利润=合计毛利润-上月支出成本
+      yingli_lirun() {
+        return this.maoli - this.lastmon_output_money
+      },
 
-    	// 客服A软件毛利润=客服A软件总业绩*比例（和第三个提成比例一样）- 扣税（（客服A软件总业绩*比例（和第三个提成比例一样）-客服A软件总业绩*比例（和第三个提成比例一样）*7%）*7%）
-    	maoli_software_a(){
-    		// 软件毛利润=软件总业绩*比例（根据软件总业绩去判断是多少提成比例）- 扣税（（软件总业绩*比例-软件总业绩*比例*7%）*7%）
-    		let num = (+this.income_sortware_a) * getPercentNotSortware(+this.income_sortware_a)
-    		return num - (num - num*0.07)*0.07
-    	},
-    	
-    	// 客服A合计毛利润=客服A非软件毛利润+客服A软件毛利润
-    	maoli_a(){
-    		return this.maoli_notSoftware_a + this.maoli_software_a
-    	},	
+      // 客服团队提成=营业利润*30%
+      ticheng_team() {
+        return this.yingli_lirun * 0.3
+      },
 
+      // 客服A非软件毛利润=客服A非软件总业绩*比例（和第三个提成比例一样）- 扣税（（客服A非软件总业绩*比例（和第三个提成比例一样）-非软件总业绩*比例（和第三个提成比例一样）*7%）*7%）
+      maoli_notSoftware_a() {
+        // 非软件总业绩*比例（根据软件总业绩去判断是多少提成比例）- 扣税（（非软件总业绩*比例-非软件总业绩*比例*7%）*7%）
+        let num = (+this.income_notSortware_a) * getPercentNotSortware(+this.income_notSortware_a)
+        return num - (num - num * this.kousui) * this.kousui
+      },
 
-    	// 客服A贡献比例=客服A合计毛利润/合计毛利润
-		percent_a(){
-      let res = this.maoli_a/this.maoli
-			return res===res ? res : 0
-		},
+      // 客服A软件毛利润=客服A软件总业绩*比例（和第三个提成比例一样）- 扣税（（客服A软件总业绩*比例（和第三个提成比例一样）-客服A软件总业绩*比例（和第三个提成比例一样）*7%）*7%）
+      maoli_software_a() {
+        // 软件毛利润=软件总业绩*比例（根据软件总业绩去判断是多少提成比例）- 扣税（（软件总业绩*比例-软件总业绩*比例*7%）*7%）
+        let num = (+this.income_sortware_a) * getPercentNotSortware(+this.income_sortware_a)
+        return num - (num - num * this.kousui) * this.kousui
+      },
 
-		// 客服A提成=客服团队提成*客服A贡献比例
-		ticheng_a(){
-			return this.ticheng_team * this.percent_a
-		},
+      // 客服A合计毛利润=客服A非软件毛利润+客服A软件毛利润
+      maoli_a() {
+        return this.maoli_notSoftware_a + this.maoli_software_a
+      },
 
 
-		// 合伙人分配利润=营业利润*70%
-		lirun_hehuoren(){
-			return this.yingli_lirun * 0.7
-		},
+      // 客服A贡献比例=客服A合计毛利润/合计毛利润
+      percent_a() {
+        let res = this.maoli_a / this.maoli
+        return res === res ? res : 0
+      },
 
-		// 运营官分红=营业利润*70%*10%
-		fenhong_yunying(){
-			return this.yingli_lirun * 0.7 * 0.1
-		},
+      // 客服A提成=客服团队提成*客服A贡献比例
+      ticheng_a() {
+        return this.ticheng_team * this.percent_a
+      },
 
-		// CTO分红=营业利润*70%*10%
-		fenhong_cto(){
-			return this.yingli_lirun * 0.7 * 0.1
-		},
 
-		// 净利润=合伙人分配利润-（运营官分红+CTO分红）
-		lirun_rest(){
-			return this.lirun_hehuoren - ( this.fenhong_yunying + this.fenhong_cto )
-		},	
+      // 合伙人分配利润=营业利润*70%
+      lirun_hehuoren() {
+        return this.yingli_lirun * 0.7
+      },
 
-		// 下月成本预算=净利润*40%
-		yusuan_nextmonth(){
-			return this.lirun_rest * 0.4
-		},
+      // 运营官分红=营业利润*70%*10%
+      fenhong_yunying() {
+        return this.yingli_lirun * 0.7 * 0.1
+      },
+
+      // CTO分红=营业利润*70%*10%
+      fenhong_cto() {
+        return this.yingli_lirun * 0.7 * 0.1
+      },
+
+      // 净利润=合伙人分配利润-（运营官分红+CTO分红）
+      lirun_rest() {
+        return this.lirun_hehuoren - (this.fenhong_yunying + this.fenhong_cto)
+      },
+
+      // 下月成本预算=净利润*40%
+      yusuan_nextmonth() {
+        return this.lirun_rest * 0.4
+      },
     },
     methods: {
       onSubmit() {
         console.log('submit!');
       }
     }
-  }
+}
 </script>
