@@ -70,7 +70,7 @@
       <span>软件： {{maoli_software_a}}</span>
     </p>
   	<p>
-  		<span>合计 {{maoli}}</span>
+  		<span>合计 {{maoli_a}}</span>
   	</p>
   </el-form-item>
 	
