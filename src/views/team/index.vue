@@ -218,14 +218,14 @@ export default {
       // 客服A非软件毛利润=客服A非软件总业绩*比例（和第三个提成比例一样）- 扣税（（客服A非软件总业绩*比例（和第三个提成比例一样）-非软件总业绩*比例（和第三个提成比例一样）*7%）*7%）
       maoli_notSoftware_a() {
         // 客服A非软件总业绩*比例（和第三个提成比例一样
-        let num = (+this.income_notSortware_a) * getPercentNotSortware(+this.income_notSortware_a)
+        let num = (+this.income_notSortware_a) * getPercentNotSortware(+this.income_notSortware)
         return num - (num - num * this.kousui) * this.kousui
       },
 
       // 客服A软件毛利润=客服A软件总业绩*比例（和第三个提成比例一样）- 扣税（（客服A软件总业绩*比例（和第三个提成比例一样）-客服A软件总业绩*比例（和第三个提成比例一样）*7%）*7%）
       maoli_software_a() {
         // 客服A软件总业绩*比例（和第三个提成比例一样）
-        let num = (+this.income_sortware_a) * getPercentNotSortware(+this.income_sortware_a)
+        let num = (+this.income_sortware_a) * getPercentNotSortware(+this.income_sortware)
         return num - (num - num * this.kousui) * this.kousui
       },
 
