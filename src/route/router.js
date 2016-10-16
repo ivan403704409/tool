@@ -10,6 +10,12 @@ const routes = [
 		}
 	},
 	{
+		path: '/all_team',
+		component(resolve) {
+			require(['../views/all_team'], resolve)
+		}
+	},
+	{
 		path: '/login',
 		component(resolve) {
 			require(['../views/team'], resolve)
