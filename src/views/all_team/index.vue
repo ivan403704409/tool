@@ -87,18 +87,11 @@
         <span>7%</span>
       </el-form-item>
 
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <el-form-item label="非软件 -- 提成比例">
-            <span>7%</span>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="软件 -- 提成比例">
-            <span>7%</span>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <el-form-item label="提成比例">
+        <span>非软件：{{  curPercent_notSortfare*1000/10 + '%' }}</span>
+        &nbsp;&nbsp;&nbsp;
+        <span>软件：{{ curPercent_sortfare*1000/10 + '%' }}</span>
+      </el-form-item>
 
       
       <el-form-item label="上旬--毛税后利润">
