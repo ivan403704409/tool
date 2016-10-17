@@ -42,10 +42,8 @@
       </el-form-item>
       
 
-      <el-form-item label="全团队合计毛利润">
-        <p>
-          <span>合计： {{maoli}}</span>
-        </p>
+      <el-form-item label="全团队合计 - - 毛利润">
+        {{maoli}}
       </el-form-item>
   </div>
   
