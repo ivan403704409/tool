@@ -4,50 +4,138 @@
   <el-breadcrumb-item >全团队预算工具</el-breadcrumb-item>
 </el-breadcrumb>
 
-<el-form class="m-form" ref="form" label-width="150px" @submit.prevent="onSubmit">
+<el-form ref="form" label-width="150px" @submit.prevent="onSubmit">
   
-  <el-form-item label="总业绩 - 非软件">
-    <el-input v-model="income_notSortware" number></el-input>
-  </el-form-item>
-  <el-form-item label="总业绩 - 软件">
-    <el-input v-model="income_sortware" number></el-input>
-  </el-form-item>
+  <div class="m-form">
+      <el-form-item label="总业绩 - 非软件">
+        <el-input v-model="income_notSortware" number></el-input>
+      </el-form-item>
+      <el-form-item label="总业绩 - 软件">
+        <el-input v-model="income_sortware" number></el-input>
+      </el-form-item>
 
-  <el-form-item label="扣税">
-  	<span>7%</span>
-  </el-form-item>
+      <el-form-item label="扣税">
+        <span>7%</span>
+      </el-form-item>
 
-  <el-form-item label="提成比例">
-    <el-row>
-      <el-col :span="8">
-        <span>非软件：{{  curPercent_notSortfare*1000/10 + '%' }}</span>
-      </el-col>
-      <el-col :span="8">
-        <span>软件：{{ curPercent_sortfare*1000/10 + '%' }}</span>
-      </el-col>
-    </el-row>
-  </el-form-item>
+      <el-form-item label="提成比例">
+        <el-row>
+          <el-col :span="8">
+            <span>非软件：{{  curPercent_notSortfare*1000/10 + '%' }}</span>
+          </el-col>
+          <el-col :span="8">
+            <span>软件：{{ curPercent_sortfare*1000/10 + '%' }}</span>
+          </el-col>
+        </el-row>
+      </el-form-item>
 
 
-  <el-form-item label="毛利润">
-    <el-row>
-      <el-col :span="8">
-        <span>非软件： {{maoli_notSoftware}}</span>
-      </el-col>
-      <el-col :span="8">
-        <span>软件： {{maoli_software}}</span>
-      </el-col>
-    </el-row>
-  </el-form-item>
+    <el-form-item label="毛利润">
+        <el-row>
+          <el-col :span="8">
+            <span>非软件： {{maoli_notSoftware}}</span>
+          </el-col>
+          <el-col :span="8">
+            <span>软件： {{maoli_software}}</span>
+          </el-col>
+        </el-row>
+      </el-form-item>
+      
+
+      <el-form-item label="全团队合计毛利润">
+        <p>
+          <span>合计： {{maoli}}</span>
+        </p>
+      </el-form-item>
+  </div>
   
-
-  <el-form-item label="全团队合计毛利润">
-    <p>
-      <span>合计： {{maoli}}</span>
-    </p>
-  </el-form-item>
-
+  <!-- 123123 -->
+  
+  <div class="m-form">
+    <el-form-item label="推广名">
+        <el-input v-model="tuiguang_name"></el-input>
+    </el-form-item>
     
+    <el-row :gutter="20">
+      <el-col :span="8">
+        <el-form-item label="上旬 -- 非软件">
+            <el-input v-model="tuiguang_name"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item label="上旬 -- 软件">
+            <el-input v-model="tuiguang_name"></el-input>
+        </el-form-item>
+      </el-col>
+    </el-row>
+
+        <el-row :gutter="20">
+      <el-col :span="8">
+        <el-form-item label="下旬 -- 非软件">
+            <el-input v-model="tuiguang_name"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item label="下旬 -- 软件">
+            <el-input v-model="tuiguang_name"></el-input>
+        </el-form-item>
+      </el-col>
+    </el-row>
+
+
+      <el-form-item label="扣税">
+        <span>7%</span>
+      </el-form-item>
+
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-form-item label="非软件 -- 提成比例">
+            <span>7%</span>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="软件 -- 提成比例">
+            <span>7%</span>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      
+      <el-form-item label="上旬--毛税后利润">
+        <p>
+          <span>非软件： {{maoli_notSoftware_a}}</span>
+          &nbsp;&nbsp;&nbsp;
+          <span>软件： {{maoli_software_a}}</span>
+          &nbsp;&nbsp;&nbsp;
+          <span>合计： {{maoli_a}}</span>
+        </p>      </el-form-item>
+
+      
+      <el-form-item label="下旬--毛税后利润">
+        <p>
+          <span>非软件： {{maoli_notSoftware_a}}</span>
+          &nbsp;&nbsp;&nbsp;
+          <span>软件： {{maoli_software_a}}</span>
+          &nbsp;&nbsp;&nbsp;
+          <span>合计： {{maoli_a}}</span>
+        </p>
+      </el-form-item>
+      
+      <el-form-item label="（推广名）税后全月总计毛利润">
+        <span>{{ maoli_a }}</span>
+      </el-form-item>
+      
+
+<!--     <el-form-item label="上旬">
+      <el-form-item label="非软件">
+        <el-input v-model="tuiguang_name"></el-input>
+      </el-form-item>
+      <el-form-item label="软件">
+        <el-input v-model="tuiguang_name"></el-input>
+      </el-form-item>
+    </el-form-item>
+ -->
+  </div>
 
   <el-form-item label="上月支出成本">
     <el-input v-model="lastmon_output_money" number></el-input>
@@ -152,6 +240,8 @@ const kousui = 0.07
 export default {
   data() {
       return {
+        tuiguang_name: '',  //推广名
+
         kousui,
 
 

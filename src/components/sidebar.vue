@@ -1,7 +1,7 @@
 <!-- 侧边导航 -->
 <template>
 <div class="m-sidebar">
-	<el-menu default-active="team" theme="dark" class="el-menu-vertical-demo" router>
+	<el-menu default-active="all_team" theme="dark" class="el-menu-vertical-demo" router>
 
 	    <el-menu-item index="all_team"><i class="el-icon-setting"></i>全团队预算工具</el-menu-item>
 	    <el-menu-item index="index"><i class="el-icon-menu"></i>推广提成计算工具</el-menu-item>
