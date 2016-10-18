@@ -52,6 +52,15 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true
   },
+  vue: {
+    loaders: {
+      scss: 'sass',
+      css: 'style!css!sass',
+      // scss: ExtractTextPlugin.extract('css!sass'),   //将CSS提取到单独文件
+      // css: ExtractTextPlugin.extract('css!sass'),    //将CSS提取到单独文件
+      js: 'babel'
+    }
+  },
   devtool: '#eval-source-map'
 }
 
