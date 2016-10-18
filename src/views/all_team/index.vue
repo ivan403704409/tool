@@ -135,18 +135,18 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="上旬 -- 工资成本">
-                <el-input v-model="shangxun_gongzi_cb" placeholder="上旬非软件业绩"></el-input>
+                <el-input v-model="tuandui_shangxun_gongzi" placeholder="上旬非软件业绩"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="上旬 -- 其他开支">
-                <el-input v-model="shangxun_qita_cb" placeholder="上旬软件业绩"></el-input>
+                <el-input v-model="tuandui_shangxun_qita_kaizi" placeholder="上旬软件业绩"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item class="m-input-disabeld" label="合计">
-                <el-input :value="+shangxun_gongzi_cb + +shangxun_qita_cb" disabled></el-input>
+                <el-input :value="+tuandui_shangxun_gongzi + +tuandui_shangxun_qita_kaizi" disabled></el-input>
             </el-form-item>
           </el-col>
        </el-row>
@@ -156,18 +156,18 @@
        <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="下旬 -- 工资成本">
-                <el-input v-model="xiaxun_gongzi_cb" placeholder="下旬非软件业绩"></el-input>
+                <el-input v-model="tuandui_xiaxun_gongzi" placeholder=""></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="下旬 -- 其他开支">
-                <el-input v-model="xiaxun_qita_cb" placeholder="下旬软件业绩"></el-input>
+                <el-input v-model="tuandui_xiaxun_qita_kaizi" placeholder=""></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item class="m-input-disabeld" label="合计">
-                <el-input :value="+xiaxun_gongzi_cb + (+xiaxun_qita_cb)" disabled></el-input>
+                <el-input :value="+tuandui_xiaxun_gongzi + (+tuandui_xiaxun_qita_kaizi)" disabled></el-input>
             </el-form-item>
           </el-col>
       </el-row>
@@ -178,18 +178,18 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item class="m-input-disabeld" label="上旬营业利润">
-                <el-input v-model="shangxun_yingli_lirun" disabled></el-input>
+                <el-input v-model="tuandui_shangxun_yingli_lirun" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item class="m-input-disabeld" label="下旬营业利润">
-                <el-input v-model="xiaxun_yingli_lirun" disabled></el-input>
+                <el-input v-model="tuandui_xiaxun_yingli_lirun" disabled></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item class="m-input-disabeld" label="合计">
-                <el-input :value="+shangxun_yingli_lirun + +xiaxun_yingli_lirun" disabled></el-input>
+                <el-input :value="+tuandui_shangxun_yingli_lirun + +tuandui_xiaxun_yingli_lirun" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -197,7 +197,7 @@
         
         <!-- 推广瓜分比例 -->
         <el-form-item label="推广瓜分比例">
-          <el-input v-model="tuiguang_guafen_bili" ></el-input>
+          <el-input v-model="tuandui_tuiguang_guafen_bili" ></el-input>
         </el-form-item>
         <!-- /推广瓜分比例 -->
         
@@ -545,6 +545,16 @@ export default {
         tuandui_shangxun_fei_ruanjian_maoli: '',  //团队上旬非软件毛利
         tuandui_xiaxun_ruanjian_maoli: '',  //团队下旬软件毛利
         tuandui_xiaxun_fei_ruanjian_maoli: '',  //团队下旬非软件毛利
+
+
+        tuandui_shangxun_yingli_lirun: '',  //团队上旬营业利润
+        tuandui_xiaxun_yingli_lirun: '',    //团队下旬营业利润
+
+        tuandui_shangxun_gongzi: '',    //团队上旬工资成本
+        tuandui_shangxun_qita_kaizi: '',  //团队上旬其它成本
+        tuandui_xiaxun_gongzi: '',
+        tuandui_xiaxun_qita_kaizi: '',
+
         // -团队
 
         shangxun_gongzi_cb: '', //上旬工资成本
@@ -558,7 +568,7 @@ export default {
         shangxun_tuiguang_ticheng: '', //上旬推广提成
         xiaxun_tuiguang_ticheng: '',   //下旬推广提成
 
-        tuiguang_guafen_bili: '',   //推广瓜分比例
+        tuandui_tuiguang_guafen_bili: 0.4,   //推广瓜分比例
       }
     },
     computed: {
@@ -594,6 +604,20 @@ export default {
       tuandui_xiaxun_ruanjian_maoli(){
         let num = (+this.tuandui_xiaxun_ruanjian_yeji) * getPercentNotSortware(+this.income_sortware)
         return num - (num - num * this.kousui) * this.kousui
+      },
+
+      tuandui_shangxun_yingli_lirun(){
+        return +this.tuandui_shangxun_fei_ruanjian_maoli + 
+               +this.tuandui_shangxun_ruanjian_maoli
+               - this.tuandui_shangxun_gongzi
+               - this.tuandui_shangxun_qita_kaizi
+      },
+      // 
+      tuandui_xiaxun_yingli_lirun(){
+        return +this.tuandui_xiaxun_fei_ruanjian_maoli +
+               +this.tuandui_xiaxun_ruanjian_maoli
+               - this.tuandui_xiaxun_gongzi
+               - this.tuandui_xiaxun_qita_kaizi
       },
 
       // 当前非软件的比例
