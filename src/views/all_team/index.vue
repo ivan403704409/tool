@@ -7,18 +7,6 @@
 <el-form ref="form" label-width="150px" @submit.prevent="onSubmit">
   
   <div class="m-form">
-    <!-- content -->
-    <div class="ctn">        
-      <kefu 
-        :tuandui_shangxun_maoli="tuandui_shangxun_maoli" 
-        :tuandui_xiaxun_maoli="tuandui_xiaxun_maoli" 
-        :tuandui_shangxun_yingli_lirun="tuandui_shangxun_yingli_lirun"
-        :tuandui_xiaxun_yingli_lirun="tuandui_xiaxun_yingli_lirun"
-      ></kefu>
-    </div>
-    <!-- /content -->
-
-
 
     <div class="head">
       全团队总业绩
@@ -301,7 +289,18 @@
         </el-row>
     </div>
 
-    
+    <!-- content -->
+    <div class="ctn">        
+      <kefu 
+        :tuandui_shangxun_maoli="tuandui_shangxun_maoli" 
+        :tuandui_xiaxun_maoli="tuandui_xiaxun_maoli" 
+        :tuandui_shangxun_yingli_lirun="tuandui_shangxun_yingli_lirun"
+        :tuandui_xiaxun_yingli_lirun="tuandui_xiaxun_yingli_lirun"
+        :tuandui_shangxun_yeji="tuandui_shangxun_yeji"
+        :tuandui_xiaxun_yeji="tuandui_xiaxun_yeji"
+      ></kefu>
+    </div>
+    <!-- /content -->
 
 
 </div>
@@ -391,6 +390,9 @@ export default {
         tuandui_shangxun_fei_ruanjian_yeji: '',  //上旬非软件业绩
         tuandui_xiaxun_ruanjian_yeji: '',  //下旬软件业绩
         tuandui_xiaxun_fei_ruanjian_yeji: '',  //下旬非软件业绩
+        tuandui_shangxun_yeji: '',
+        tuandui_xiaxun_yeji: '',
+
 
         tuandui_ruanjian_ticheng_bili: '',  //团队软件提成比例
         tuandui_fei_ruanjian_ticheng_bili: '',  //团队非软件提成比例
@@ -429,6 +431,16 @@ export default {
       }
     },
     computed: {
+
+      tuandui_shangxun_yeji(){
+        return +this.tuandui_shangxun_fei_ruanjian_yeji + +this.tuandui_shangxun_ruanjian_yeji
+      },
+
+      tuandui_xiaxun_yeji(){
+        return +this.tuandui_xiaxun_fei_ruanjian_yeji + +this.tuandui_xiaxun_ruanjian_yeji
+      },
+
+
       // 团队非软件的比例
       tuandui_fei_ruanjian_ticheng_bili(){
         return getPercentNotSortware(+this.tuandui_shangxun_fei_ruanjian_yeji + +this.tuandui_xiaxun_fei_ruanjian_yeji)

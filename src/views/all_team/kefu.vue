@@ -211,7 +211,14 @@ const getPercentNotSortware = getPercent(percentNotSortfare)
 const getPercentSortware = getPercent(percentSortware)
 
 export default {
-	props: ['tuandui_shangxun_maoli', 'tuandui_xiaxun_maoli', 'tuandui_shangxun_yingli_lirun', 'tuandui_xiaxun_yingli_lirun'],
+	props: [
+		'tuandui_shangxun_maoli', 
+		'tuandui_xiaxun_maoli', 
+		'tuandui_shangxun_yingli_lirun', 
+		'tuandui_xiaxun_yingli_lirun',
+		'tuandui_shangxun_yeji',
+		'tuandui_xiaxun_yeji'
+	],
 	data(){
 		return {
 			kousui: '', //扣税
@@ -254,13 +261,11 @@ export default {
 	},
 	computed:{
 		shangxun_fei_ruanjian_maoli(){
-	        // TODO 后面的shangxun_fei_ruanjian_yeji 最后要改成全团队的总业绩
-	        let num = (+this.shangxun_fei_ruanjian_yeji) * getPercentNotSortware(+this.shangxun_fei_ruanjian_yeji)
+	        let num = (+this.shangxun_fei_ruanjian_yeji) * getPercentNotSortware(+this.tuandui_shangxun_yeji)
 	        return num - (num - num * this.kousui) * this.kousui
 		},
 		shangxun_ruanjian_maoli(){
-	        // TODO 后面的shangxun_ruanjian_yeji 最后要改成全团队的总业绩
-	        let num = (+this.shangxun_ruanjian_yeji) * getPercentSortware(+this.shangxun_ruanjian_yeji)
+	        let num = (+this.shangxun_ruanjian_yeji) * getPercentSortware(+this.tuandui_xiaxun_yeji)
 	        return num - (num - num * this.kousui) * this.kousui
 		},
 		shangxun_maoli(){
