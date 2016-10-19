@@ -7,19 +7,6 @@
 <el-form ref="form" label-width="150px" @submit.prevent="onSubmit">
   
   <div class="m-form">
-    <!-- content -->
-    <div class="ctn">        
-      <kefu 
-        :tuandui_shangxun_maoli="tuandui_shangxun_maoli" 
-        :tuandui_xiaxun_maoli="tuandui_xiaxun_maoli" 
-        :tuandui_shangxun_yingli_lirun="tuandui_shangxun_yingli_lirun"
-        :tuandui_xiaxun_yingli_lirun="tuandui_xiaxun_yingli_lirun"
-      ></kefu>
-    </div>
-    <!-- /content -->
-
-
-
     <div class="head">
       全团队总业绩
     </div>
@@ -300,12 +287,232 @@
           </el-col>
         </el-row>
     </div>
+    <div class="ctn">        
+      <!--  -->
+        <el-row :gutter="20">
+            <el-col :span="8">
+              <el-form-item label="上旬 -- 非软件">
+                  <el-input v-model="tuiguang_name" placeholder="上旬非软件业绩"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="上旬 -- 软件">
+                  <el-input v-model="tuiguang_name" placeholder="上旬软件业绩"></el-input>
+              </el-form-item>
+            </el-col>
+        </el-row>
 
-    
+        <el-row :gutter="20">
+            <el-col :span="8">
+              <el-form-item label="下旬 -- 非软件">
+                  <el-input v-model="tuiguang_name" placeholder="下旬软件业绩"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="下旬 -- 软件">
+                  <el-input v-model="tuiguang_name" placeholder="下旬软件业绩"></el-input>
+              </el-form-item>
+            </el-col>
+        </el-row>
+        
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="扣税点">
+                <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        
+      <!-- 上旬个人毛利润 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬 -- 非软件毛利润">
+              <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬 -- 软件毛利润">
+              <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+              <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <!-- /上旬个人毛利润 -->
+        
+      <!-- 下旬个人毛利润 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬 -- 非软件毛利润">
+              <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬 -- 软件毛利润">
+              <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+              <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <!-- /下旬个人毛利润 -->
+        
+      <!-- 所在推广团队的贡献比率 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬 -- 所在推广团队的贡献比率">
+              <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬 -- 所在推广团队的贡献比率">
+              <el-input value="7%" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <!-- /所在推广团队的贡献比率 -->
+      
+      <!-- 上旬成本 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="上旬 -- 工资成本">
+                <el-input v-model="shangxun_gongzi_cb" placeholder="上旬非软件业绩"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="下旬 -- 工资成本">
+                <el-input v-model="shangxun_qita_cb" placeholder="上旬软件业绩"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+                <el-input :value="+shangxun_gongzi_cb + +shangxun_qita_cb" disabled></el-input>
+            </el-form-item>
+          </el-col>
+       </el-row>
+      <!-- 上旬成本-end -->
+
+      <!-- 营业利润 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬 -- 营业利润">
+                <el-input v-model="shangxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬 -- 营业利润">
+                <el-input v-model="xiaxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+                <el-input :value="+shangxun_yingli_lirun + +xiaxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <!-- /营业利润-end -->
+      
+      <el-form-item label="所在推广团队分配比率">
+          <el-input v-model="tuiguang_name" ></el-input>
+      </el-form-item>
+
+      
+      <!-- 营业利润 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬 -- 提成">
+                <el-input v-model="shangxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬 -- 提成">
+                <el-input v-model="xiaxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+                <el-input :value="+shangxun_yingli_lirun + +xiaxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <!-- /营业利润-end -->      
+
+    </div>
+    <!-- /content -->
 
 
 </div>
 
+ <!--  <el-form-item label="上月支出成本">
+    <el-input v-model="lastmon_output_money" number></el-input>
+  </el-form-item>
+
+  <el-form-item label="营业利润">
+  	<p>{{ yingli_lirun }}</p>
+  </el-form-item>
+
+  <el-form-item label="客服团队提成">
+  	<p>{{ ticheng_team }}</p>
+  </el-form-item>
+
+	
+  <el-form-item label="客服A-非软件总业绩">
+    <el-input v-model="income_notSortware_a" number></el-input>
+  </el-form-item>
+  <el-form-item label="客服A-软件总业绩">
+    <el-input v-model="income_sortware_a" number></el-input>
+  </el-form-item>
+
+  <el-form-item label="客服A-毛利润">
+  	<p>
+  		<span>非软件： {{maoli_notSoftware_a}}</span>
+  	</p>
+    <p>
+      <span>软件： {{maoli_software_a}}</span>
+    </p>
+  	<p>
+  		<span>合计： {{maoli_a}}</span>
+  	</p>
+  </el-form-item>
+	
+  
+  <el-form-item label="客服A-客服贡献比例">
+  	<p>{{ percent_a * 1000/10 + '%' }}</p>
+  </el-form-item>
+	
+	<el-form-item label="客服A提成">
+		  	<p>{{ ticheng_a }}</p>
+	</el-form-item>
+	
+	<el-form-item label="合伙人分配利润">
+		  	<p>{{ lirun_hehuoren }}</p>
+	</el-form-item>
+	
+	<el-form-item label="运营官分红">
+		  	<p>{{ fenhong_yunying }}</p>
+	</el-form-item>
+	
+
+	<el-form-item label="CTO分红">
+		  	<p>{{ fenhong_cto }}</p>
+	</el-form-item>
+
+	<el-form-item label="净利润">
+		  	<p>{{ lirun_rest }}</p>
+	</el-form-item>
+
+	<el-form-item label="下月成本预算">
+		  	<p>{{ yusuan_nextmonth }}</p>
+	</el-form-item> -->
 </el-form>	
 </div>
 
@@ -313,7 +520,7 @@
 
 <script>
 import getPercent from 'src/util/percent.js'
-import kefu from './kefu.vue'
+
 // 软件提成比例
 var  percentNotSortfare = [
 	{ value: 5999,  percent: 10,  },
@@ -346,9 +553,6 @@ const getPercentSortware = getPercent(percentSortware)
 // 扣税
 const kousui = 0.07
 export default {
-  components:{
-    kefu,
-  },
   data() {
       return {
         tuiguang_name: '',  //推广名
