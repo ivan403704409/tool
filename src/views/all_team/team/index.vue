@@ -5,10 +5,10 @@
   <!-- 123123 -->
   <input type="text" v-model="tuandui.a">
   <input type="text" v-model="tuandui.b">
-  {{+tuandui.a + +tuandui.b}}
 
-  {{tuandui.c}}
-  --- {{self.c}}
+ c--- {{tuandui.c}}
+  <br>
+  <br>
   d--- {{d}}
   <div class="m-form">
     <div class="head">
@@ -301,6 +301,15 @@ export default {
         },
         d: 0,
       }
+    },
+    watch: {
+      ['tuandui.a'](newVal){
+        this.tuandui.c = +newVal + +this.tuandui.b
+      },
+
+      ['tuandui.b'](newVal){
+        this.tuandui.c = +newVal + +this.tuandui.a
+      },
     },
     computed: {
       d(){
