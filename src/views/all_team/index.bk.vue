@@ -8,11 +8,11 @@
   
   <div class="m-form">
 
-    <!-- <result></result> -->
+    <result></result>
 
 
 
-   <!--  <div class="head">
+    <div class="head">
       全团队总业绩
     </div>
       <div class="ctn">
@@ -70,13 +70,218 @@
         </el-row>
 
       </div>
-  </div> -->
+  </div>
   
   <!-- 123123 -->
   
   <div class="m-form">
-    <team :tuandui="datas[0].tuandui"></team>
-<!-- 
+    <div class="head">
+      <el-row>
+        <el-col :span="6">
+          <el-input v-model="tuiguang_name" placeholder="请入推广名"></el-input>
+        </el-col>
+      </el-row>
+    </div>
+
+    <div class="head">
+      {{tuiguang_name}}团队总业绩
+    </div>
+
+    <div class="ctn">
+      <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="上旬 -- 非软件">
+                <el-input v-model="tuandui_shangxun_fei_ruanjian_yeji" placeholder="上旬非软件业绩"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="上旬 -- 软件">
+                <el-input v-model="tuandui_shangxun_ruanjian_yeji" placeholder="上旬软件业绩"></el-input>
+            </el-form-item>
+          </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="下旬 -- 非软件">
+                <el-input v-model="tuandui_xiaxun_fei_ruanjian_yeji" placeholder="下旬非软件业绩"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="下旬 -- 软件">
+                <el-input v-model="tuandui_xiaxun_ruanjian_yeji" placeholder="下旬软件业绩"></el-input>
+            </el-form-item>
+          </el-col>
+      </el-row>
+
+
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-form-item class="m-input-disabeld" label="扣税">
+              <el-input value="7%" disabled></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-form-item class="m-input-disabeld" label="非软件提成比例">
+              <el-input :value="tuandui_fei_ruanjian_ticheng_bili*1000/10 + '%'" disabled></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item class="m-input-disabeld" label="软件提成比例">
+              <el-input :value="tuandui_ruanjian_ticheng_bili*1000/10 + '%'" disabled></el-input>
+          </el-form-item>
+        </el-col>        
+      </el-row>
+        
+      <!-- 上旬毛利润 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬 -- 非软件毛利润">
+                <el-input :value="tuandui_shangxun_fei_ruanjian_maoli" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬 -- 软件毛利润">
+                <el-input v-model="tuandui_shangxun_ruanjian_maoli" disabled></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计" >
+                <el-input :value="tuandui_shangxun_maoli" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <!-- /上旬毛利润 -->
+
+      <!-- 下旬毛利润 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬 -- 非软件毛利润">
+                <el-input :value="tuandui_xiaxun_fei_ruanjian_maoli" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬 -- 软件毛利润">
+                <el-input v-model="tuandui_xiaxun_ruanjian_maoli" disabled></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+                <el-input :value="tuandui_xiaxun_maoli" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <!-- /下旬毛利润 -->
+
+
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-form-item class="m-input-disabeld" label="税后全月总计毛利润">
+              <el-input :value="tuandui_shangxun_maoli + tuandui_xiaxun_maoli" disabled></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+
+      
+      <!-- 上旬成本 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="上旬 -- 工资成本">
+                <el-input v-model="tuandui_shangxun_gongzi" placeholder="团队上旬工资成本"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="上旬 -- 其它开支">
+                <el-input v-model="tuandui_shangxun_qita_kaizi" placeholder="团队上旬其它开支"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+                <el-input :value="+tuandui_shangxun_gongzi + +tuandui_shangxun_qita_kaizi" disabled></el-input>
+            </el-form-item>
+          </el-col>
+       </el-row>
+     <!-- 上旬成本-end -->
+      
+      <!-- 下旬成本 -->
+       <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="下旬 -- 工资成本">
+                <el-input v-model="tuandui_xiaxun_gongzi" placeholder="团队下旬工资成本"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="下旬 -- 其它开支">
+                <el-input v-model="tuandui_xiaxun_qita_kaizi" placeholder="团队下旬其它开支"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+                <el-input :value="+tuandui_xiaxun_gongzi + (+tuandui_xiaxun_qita_kaizi)" disabled></el-input>
+            </el-form-item>
+          </el-col>
+      </el-row>
+      <!-- 下旬成本-end -->
+      
+
+      <!-- 营业利润 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬营业利润">
+                <el-input v-model="tuandui_shangxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬营业利润">
+                <el-input v-model="tuandui_xiaxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+                <el-input :value="+tuandui_shangxun_yingli_lirun + +tuandui_xiaxun_yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      <!-- /营业利润-end -->
+        
+        <!-- 推广瓜分比例 -->            
+        <el-form-item label="推广瓜分比例">
+          <el-input v-model="tuandui_tuiguang_guafen_bili" ></el-input>
+        </el-form-item>
+        <!-- /推广瓜分比例 -->
+        
+        <!-- 推广提成 -->
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="上旬推广提成">
+                <el-input :value="tuandui_shangxun_yingli_lirun * tuandui_tuiguang_guafen_bili" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="下旬推广提成">
+                <el-input :value="tuandui_xiaxun_yingli_lirun * tuandui_tuiguang_guafen_bili" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item class="m-input-disabeld" label="合计">
+                <el-input :value="tuandui_shangxun_yingli_lirun * tuandui_tuiguang_guafen_bili + tuandui_xiaxun_yingli_lirun * tuandui_tuiguang_guafen_bili" disabled></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!-- /推广提成 -->
+
+    </div>
+    <!-- /content -->
+
     <div class="head">
       {{tuiguang_name}}旗下所有客服
     </div>
@@ -86,10 +291,10 @@
             <el-input v-model="tuiguang_name" placeholder="请输入客服名"></el-input>
           </el-col>
         </el-row>
-    </div> -->
+    </div>
 
     <!-- content -->
-    <!-- <div class="ctn">        
+    <div class="ctn">        
       <kefu 
         :tuandui_shangxun_maoli="tuandui_shangxun_maoli" 
         :tuandui_xiaxun_maoli="tuandui_xiaxun_maoli" 
@@ -98,7 +303,7 @@
         :tuandui_shangxun_yeji="tuandui_shangxun_yeji"
         :tuandui_xiaxun_yeji="tuandui_xiaxun_yeji"
       ></kefu>
-    </div> -->
+    </div>
     <!-- /content -->
 
 
@@ -112,8 +317,7 @@
 <script>
 import getPercent from 'src/util/percent.js'
 import kefu from './kefu.vue'
-import team from './team'
-// import result from './result.vue'
+import result from './result.vue'
 // 软件提成比例
 var  percentNotSortfare = [
 	{ value: 5999,  percent: 10,  },
@@ -143,20 +347,15 @@ const percentSortware = [
 const getPercentNotSortware = getPercent(percentNotSortfare)
 const getPercentSortware = getPercent(percentSortware)
 
-
-import datas from './data.js'
-
 // 扣税
 const kousui = 0.07
 export default {
   components:{
     kefu,
-    // result,
-    team,
+    result,
   },
   data() {
       return {
-        datas,
         tuiguang_name: '',  //推广名
 
         kousui,
