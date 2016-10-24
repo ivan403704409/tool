@@ -7,12 +7,7 @@
 <el-form ref="form" label-width="150px" @submit.prevent="onSubmit">
   
   <div class="m-form">
-
-    <!-- <result></result> -->
-
-
-
-   <!--  <div class="head">
+    <div class="head">
       全团队总业绩
     </div>
       <div class="ctn">
@@ -70,40 +65,9 @@
         </el-row>
 
       </div>
-  </div> -->
-  
-  <!-- 123123 -->
-  
-  <div class="m-form">
-    <team :tuandui-len="tuanduiLen"></team>
-<!-- 
-    <div class="head">
-      {{tuiguang_name}}旗下所有客服
-    </div>
-    <div class="head">
-        <el-row>
-          <el-col :span="8">
-            <el-input v-model="tuiguang_name" placeholder="请输入客服名"></el-input>
-          </el-col>
-        </el-row>
-    </div> -->
-
-    <!-- content -->
-    <!-- <div class="ctn">        
-      <kefu 
-        :tuandui_shangxun_maoli="tuandui_shangxun_maoli" 
-        :tuandui_xiaxun_maoli="tuandui_xiaxun_maoli" 
-        :tuandui_shangxun_yingli_lirun="tuandui_shangxun_yingli_lirun"
-        :tuandui_xiaxun_yingli_lirun="tuandui_xiaxun_yingli_lirun"
-        :tuandui_shangxun_yeji="tuandui_shangxun_yeji"
-        :tuandui_xiaxun_yeji="tuandui_xiaxun_yeji"
-      ></kefu>
-    </div> -->
-    <!-- /content -->
-
-
-</div>
-
+  </div>
+    
+  <team :tuandui-len="tuanduiLen"></team>
 </el-form>	
 </div>
 
