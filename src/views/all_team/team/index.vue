@@ -18,7 +18,7 @@
               <p>是否删除此客服？</p>
               <div style="text-align: right; margin: 0">
                 <el-button size="mini" type="text" @click.native="visible = false">取消</el-button>
-                <el-button type="primary" size="mini" @click.native="onDelete">确定</el-button>
+                <el-button type="primary" size="mini" @click.native="$emit('on-delete-tuandui', index)">确定</el-button>
               </div>
             </el-popover>
             <el-tooltip class="item" effect="dark" content="删除团队" placement="bottom"  v-show="tuanduiLen>1">
@@ -27,7 +27,7 @@
           </el-col>
           <el-col :span="1" :offset="tuanduiLen>1 ? 1 : 16">
             <el-tooltip class="item" effect="dark" content="添加团队" placement="bottom">
-              <el-button type="primary" icon="plus" @click.native="addKefu"></el-button>
+              <el-button type="primary" icon="plus" @click.native="$emit('on-add-tuandui')"></el-button>
           </el-tooltip>
           </el-col>
       </el-row>
@@ -190,6 +190,7 @@ export default {
     kefu,
   },
   props: {
+    index: Number,
     tuanduiLen: Number,
   },
   data() {

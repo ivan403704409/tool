@@ -67,7 +67,9 @@
       </div>
   </div>
     
-  <team :tuandui-len="tuanduiLen"></team>
+  <team :index="index" :tuandui-len="tuanduiLen" @on-add-tuandui="onAddTuandui" @on-delete-tuandui="onDeleteTuandui"
+    v-for="(item,index) in teams" v-if="item"
+  ></team>
 </el-form>	
 </div>
 
@@ -121,6 +123,7 @@ export default {
   data() {
       return {
         tuanduiLen: 1,
+        teams: [true],
         datas,
         tuiguang_name: '',  //推广名
 
@@ -203,7 +206,9 @@ export default {
       }
     },
     computed: {
-
+      tuanduiLen(){
+        return this.teams.filter(val => val).length
+      },
       tuandui_shangxun_yeji(){
         return +this.tuandui_shangxun_fei_ruanjian_yeji + +this.tuandui_shangxun_ruanjian_yeji
       },
@@ -365,6 +370,12 @@ export default {
       },
     },
     methods: {
+      onAddTuandui(){
+        this.teams.push(true)
+      },
+      onDeleteTuandui(index){
+        this.teams.splice(index, 1, false)
+      },
       onSubmit() {
         console.log('submit!');
       }
