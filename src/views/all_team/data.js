@@ -2,9 +2,7 @@ export default [
 	{
 		// 团队的
 		tuandui: {
-			a: 30,
-				b: 20,
-				c: 50,
+			
 			// 团队名
 			name: '',
 

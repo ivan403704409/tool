@@ -75,7 +75,7 @@
   <!-- 123123 -->
   
   <div class="m-form">
-    <team :tuandui="datas[0].tuandui"></team>
+    <team :tuandui-len="tuanduiLen"></team>
 <!-- 
     <div class="head">
       {{tuiguang_name}}旗下所有客服
@@ -156,6 +156,7 @@ export default {
   },
   data() {
       return {
+        tuanduiLen: 1,
         datas,
         tuiguang_name: '',  //推广名
 
