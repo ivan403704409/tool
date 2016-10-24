@@ -137,7 +137,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="16">
-            <el-form-item class="m-input-disabeld" label="推广提成">
+            <el-form-item class="m-input-disabeld" label="提成">
                 <el-input :value="ticheng" disabled></el-input>
             </el-form-item>
           </el-col>
@@ -204,7 +204,7 @@ export default {
           // 营业利润          yingli_lirun: '', //一个月的营业利润
 
           // 提成
-          ticheng_bili: 0.3,
+          // ticheng_bili: 0.3,
           ticheng: '',  //一个月的提成
 
       }
@@ -265,7 +265,7 @@ export default {
 
       // 客服团队提成=营业利润*30%
       ticheng() {
-        return this.$parent.$parent.ticheng * this.gongxian_bili
+        return this.data.ticheng_bili * this.gongxian_bili
       },
 
     },

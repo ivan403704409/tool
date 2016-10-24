@@ -163,8 +163,8 @@
     </div>
     <!-- /content -->
   
-    <el-row v-for="(item, index) in kefuList">
-      <el-col :span="24">
+    <el-row :gutter="20" v-for="(item, index) in kefuList">
+      <el-col :span="22">
         <el-form-item class="m-input-disabeld" :label="'客服'+item.name">
             <el-input :value="item.ticheng" disabled></el-input>
         </el-form-item>
@@ -201,10 +201,9 @@ export default {
         ruanjian_yeji: '',
         gongzi_chengben: '',
         qita_chengben: '',
-        ticheng_bili: '',
+        ticheng_bili: 0.3,
         ticheng: '',
        }],
-       resultList: [{name: '', }, {name: '', }],
 
        // 团队名
         name: '',
@@ -297,7 +296,7 @@ export default {
     },
     methods: {
       onUpdate(ticheng, index){
-        this.resultList.ticheng = ticheng
+        this.kefuList[0].ticheng = ticheng
       },
       onDelete(index){
         this.kefuList.splice(index, 1)
