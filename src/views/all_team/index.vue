@@ -6,6 +6,7 @@
 
 <el-form ref="form" label-width="150px" @submit.prevent="onSubmit">
   
+
   <div class="m-form">
     <div class="head">
       全团队总业绩
@@ -63,11 +64,88 @@
             </el-form-item>
           </el-col>        
         </el-row>
+    
+        <hr>
+
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="成本">
+                <el-input v-model="chengben" placeholder="成本"></el-input>
+            </el-form-item>
+          </el-col>
+       </el-row>
+
+      <el-row :gutter="20">
+          <el-col :span="20">
+            <el-form-item class="m-input-disabeld" label="营业利润">
+                <el-input :value="yingli_lirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+       </el-row>
+  
+        <el-row :gutter="20">
+          <el-col :span="20">
+            <el-form-item class="m-input-disabeld" label="合伙人分配利润">
+                <el-input :value="hehuoren_ticheng_bili" disabled></el-input>
+            </el-form-item>
+          </el-col>
+       </el-row>
+
+        
+        <el-row :gutter="20">
+          <el-col :span="20">
+            <el-form-item class="m-input-disabeld" label="运营官分红">
+                <el-input :value="yingyunguan_fenhong" disabled></el-input>
+            </el-form-item>
+          </el-col>
+       </el-row>
+        
+        
+        <el-row :gutter="20">
+          <el-col :span="20">
+            <el-form-item class="m-input-disabeld" label="CTO分红">
+                <el-input :value="cto_fenhong" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="1">
+            <el-tooltip class="item" effect="dark" content="添加合伙人" placement="right">
+              <el-button type="primary" icon="plus" @click.native="addPartners"></el-button>
+            </el-tooltip>
+          </el-col>
+       </el-row>
+      
+      <!-- 合伙人 -->
+      <partner 
+        :index="index" 
+        :data="item" 
+        :fenhong="cto_fenhong"
+        v-for="(item, index) in partners"
+        @on-delete-partner="deletePartner"
+      ></partner>
+      <!-- /合伙人 -->
+
+
+
+      <el-row :gutter="20">
+          <el-col :span="20">
+            <el-form-item class="m-input-disabeld" label="净利润">
+                <el-input :value="jinglirun" disabled></el-input>
+            </el-form-item>
+          </el-col>
+       </el-row>
+
+        <el-row :gutter="20">
+          <el-col :span="20">
+            <el-form-item class="m-input-disabeld" label="下月成本预算">
+                <el-input :value="xiayue_chengben_yusuan" disabled></el-input>
+            </el-form-item>
+          </el-col>
+       </el-row>
 
       </div>
   </div>
     
-  <team :index="index" :tuandui-len="tuanduiLen" @on-add-tuandui="onAddTuandui" @on-delete-tuandui="onDeleteTuandui"
+  <team :class="{ 'u-bds': index%2 }" :index="index" :tuandui-len="tuanduiLen" @on-add-tuandui="onAddTuandui" @on-delete-tuandui="onDeleteTuandui"
     v-for="(item,index) in teams" v-if="item"
   ></team>
 </el-form>	
@@ -79,6 +157,7 @@
 import getPercent from 'src/util/percent.js'
 import kefu from './kefu.vue'
 import team from './team'
+import partner from './partner'
 // import result from './result.vue'
 // 软件提成比例
 var  percentNotSortfare = [
@@ -117,17 +196,27 @@ const kousui = 0.07
 export default {
   components:{
     kefu,
-    // result,
     team,
+    partner,
   },
   data() {
       return {
+        visible: false,
+        chengben: '',
+
+        partners: [],
         tuanduiLen: 1,
         teams: [true],
         datas,
         tuiguang_name: '',  //推广名
 
         kousui,
+
+        hehuoren_ticheng_bili: '',
+        yingyunguan_fenhong: '',
+        cto_fenhong: '',
+        jinglirun: '',
+        xiayue_chengben_yusuan: '',
 
 
         income_notSortware: '', //非软件总业绩，  手动输入
@@ -151,11 +240,11 @@ export default {
         income_notSortware_a: '',   //客服a-非软件总业绩，手动输入
         income_sortware_a: '',    //客服a-软件总业绩，手动输入
 
-        lirun_hehuoren: '',
-        fenhong_yunying: '',
-        fenhong_cto: '',
-        lirun_rest: '',
-        yusuan_nextmonth: '',
+        hehuoren_ticheng_bili: '',
+        yingyunguan_fenhong: '',
+        cto_fenhong: '',
+        jinglirun: '',
+        xiayue_chengben_yusuan: '',
         
         curPercent_notSortfare: '',
         curPercent_sortfare: '',
@@ -304,7 +393,7 @@ export default {
 
       // 营业利润=合计毛利润-上月支出成本
       yingli_lirun() {
-        return this.maoli - this.lastmon_output_money
+        return +this.maoli - +this.chengben
       },
 
       // 客服团队提成=营业利润*30%
@@ -345,28 +434,28 @@ export default {
 
 
       // 合伙人分配利润=营业利润*70%
-      lirun_hehuoren() {
+      hehuoren_ticheng_bili() {
         return this.yingli_lirun * 0.7
       },
 
       // 运营官分红=营业利润*70%*10%
-      fenhong_yunying() {
+      yingyunguan_fenhong() {
         return this.yingli_lirun * 0.7 * 0.1
       },
 
       // CTO分红=营业利润*70%*10%
-      fenhong_cto() {
+      cto_fenhong() {
         return this.yingli_lirun * 0.7 * 0.1
       },
 
       // 净利润=合伙人分配利润-（运营官分红+CTO分红）
-      lirun_rest() {
-        return this.lirun_hehuoren - (this.fenhong_yunying + this.fenhong_cto)
+      jinglirun() {
+        return this.hehuoren_ticheng_bili - (this.yingyunguan_fenhong + this.cto_fenhong + this.cto_fenhong*this.partners.length)
       },
 
       // 下月成本预算=净利润*40%
-      yusuan_nextmonth() {
-        return this.lirun_rest * 0.4
+      xiayue_chengben_yusuan() {
+        return this.jinglirun * 0.4
       },
     },
     methods: {
@@ -376,6 +465,19 @@ export default {
       onDeleteTuandui(index){
         this.teams.splice(index, 1, false)
       },
+
+      // 添加合伙人
+      addPartners(){
+        this.partners.push({
+          name: '',
+        })
+      },
+
+      // 删除合伙人
+      deletePartner(index){
+        this.partners.splice(index, 1)
+      },
+
       onSubmit() {
         console.log('submit!');
       }

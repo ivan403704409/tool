@@ -102,12 +102,12 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="工资成本">
-                <el-input v-model="data.gongzi_chengben" placeholder="团队上旬工资成本"></el-input>
+                <el-input v-model="data.gongzi_chengben" placeholder="团队工资成本"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="其它开支">
-                <el-input v-model="data.qita_chengben" placeholder="团队上旬其它开支"></el-input>
+                <el-input v-model="data.qita_chengben" placeholder="团队其它开支"></el-input>
             </el-form-item>
           </el-col>
 

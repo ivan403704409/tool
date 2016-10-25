@@ -15,26 +15,8 @@ const routes = [
 			require(['../views/all_team'], resolve)
 		}
 	},
-	{
-		path: '/login',
-		component(resolve) {
-			require(['../views/team'], resolve)
-		}
-	},
-	{
-		path: '/index',
-		component(resolve) {
-			require(['../views/team'], resolve)
-		}
-	},
-	{
-		path: '/custom_service',
-		component(resolve) {
-			require(['../views/custom_service'], resolve)
-		}
-	},
 	// catch all redirect
-    { path: '*', redirect: '/team' }
+    { path: '*', redirect: '/all_team' }
 ]
 	
 const router = new VueRouter({ 

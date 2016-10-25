@@ -15,7 +15,7 @@
               placement="top"
               width="160"
               v-model="visible">
-              <p>是否删除此客服？</p>
+              <p>是否删除此团队？</p>
               <div style="text-align: right; margin: 0">
                 <el-button size="mini" type="text" @click.native="visible = false">取消</el-button>
                 <el-button type="primary" size="mini" @click.native="$emit('on-delete-tuandui', index)">确定</el-button>
@@ -28,7 +28,7 @@
           <el-col :span="1" :offset="tuanduiLen>1 ? 1 : 16">
             <el-tooltip class="item" effect="dark" content="添加团队" placement="bottom">
               <el-button type="primary" icon="plus" @click.native="$emit('on-add-tuandui')"></el-button>
-          </el-tooltip>
+            </el-tooltip>
           </el-col>
       </el-row>
 
@@ -98,12 +98,12 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="工资成本">
-                <el-input v-model="gongzi_chengben" placeholder="团队上旬工资成本"></el-input>
+                <el-input v-model="gongzi_chengben" placeholder="团队工资成本"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="其它开支">
-                <el-input v-model="qita_chengben" placeholder="团队上旬其它开支"></el-input>
+                <el-input v-model="qita_chengben" placeholder="团队其它开支"></el-input>
             </el-form-item>
           </el-col>
 
@@ -297,7 +297,7 @@ export default {
     },
     methods: {
       onUpdate(ticheng, index){
-        this.kefuList[0].ticheng = ticheng
+        this.kefuList[index].ticheng = ticheng
       },
       onDelete(index){
         this.kefuList.splice(index, 1)
@@ -310,7 +310,7 @@ export default {
           ruanjian_yeji: '',
           gongzi_chengben: '',
           qita_chengben: '',
-          ticheng_bili: '',
+          ticheng_bili: 0.3,
           ticheng: '',
          })
       },
