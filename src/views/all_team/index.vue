@@ -145,8 +145,15 @@
       </div>
   </div>
     
-  <team :class="{ 'u-bds': index%2 }" :index="index" :tuandui-len="tuanduiLen" @on-add-tuandui="onAddTuandui" @on-delete-tuandui="onDeleteTuandui"
-    v-for="(item,index) in teams" v-if="item"
+  <team :class="{ 'u-bds': index%2 }" 
+    :index="index" 
+    :tuandui-len="tuanduiLen" 
+    :tuandui_ruanjian_ticheng_bili="curPercent_sortfare"
+    :tuandui_fei_ruanjian_ticheng_bili="curPercent_notSortfare"
+    @on-add-tuandui="onAddTuandui" 
+    @on-delete-tuandui="onDeleteTuandui"
+    v-for="(item,index) in teams" 
+    v-if="item"
   ></team>
 </el-form>	
 </div>

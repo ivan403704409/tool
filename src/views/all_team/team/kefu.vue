@@ -166,6 +166,8 @@ export default {
   	index: Number,
   	data: Object,
   	kefuLen: Number,
+    tuandui_ruanjian_ticheng_bili: [Number,String],
+    tuandui_fei_ruanjian_ticheng_bili: [Number,String],
   },
   data() {
       return {
@@ -222,23 +224,27 @@ export default {
 
       // 团队非软件的比例
       fei_ruanjian_ticheng_bili(){
-        return getPercentNotSortware(+this.data.fei_ruanjian_yeji)
+        // return getPercentNotSortware(+this.data.fei_ruanjian_yeji)
+        return this.tuandui_fei_ruanjian_ticheng_bili
       },
 
       // 团队软件的比例
       ruanjian_ticheng_bili(){
-        return getPercentSortware(+this.data.ruanjian_yeji)
+        // return getPercentSortware(+this.data.ruanjian_yeji)
+        return this.tuandui_ruanjian_ticheng_bili
       },
 
       // 团队软件毛利
       ruanjian_maoli(){
-        let num = (+this.data.ruanjian_yeji) * getPercentNotSortware(+this.data.ruanjian_yeji)
+        // let num = (+this.data.ruanjian_yeji) * getPercentNotSortware(+this.data.ruanjian_yeji)
+        let num = (+this.data.ruanjian_yeji) * this.tuandui_ruanjian_ticheng_bili
         return num - (num - num * this.kousui) * this.kousui
       },
 
       // 团队非软件毛利
       fei_ruanjian_maoli(){
-        let num = (+this.data.fei_ruanjian_yeji) * getPercentNotSortware(+this.data.fei_ruanjian_yeji)
+        // let num = (+this.data.fei_ruanjian_yeji) * getPercentNotSortware(+this.data.fei_ruanjian_yeji)
+        let num = (+this.data.fei_ruanjian_yeji) * this.tuandui_fei_ruanjian_ticheng_bili
         return num - (num - num * this.kousui) * this.kousui
       },
 

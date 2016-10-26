@@ -155,6 +155,8 @@
         :kefu-len="kefuList.length" 
         :ref="'kefu'+index"
         :data="item" 
+        :tuandui_ruanjian_ticheng_bili="tuandui_ruanjian_ticheng_bili"
+        :tuandui_fei_ruanjian_ticheng_bili="tuandui_fei_ruanjian_ticheng_bili"
         @on-update="onUpdate" 
         @on-add="onAdd" 
         @on-delete="onDelete" 
@@ -192,6 +194,8 @@ export default {
   props: {
     index: Number,
     tuanduiLen: Number,
+    tuandui_ruanjian_ticheng_bili: [Number,String],
+    tuandui_fei_ruanjian_ticheng_bili: [Number,String],
   },
   data() {
       return {
@@ -254,23 +258,27 @@ export default {
 
       // 团队非软件的比例
       fei_ruanjian_ticheng_bili(){
-        return getPercentNotSortware(+this.fei_ruanjian_yeji)
+        // return getPercentNotSortware(+this.fei_ruanjian_yeji)
+        return this.tuandui_fei_ruanjian_ticheng_bili
       },
 
       // 团队软件的比例
       ruanjian_ticheng_bili(){
-        return getPercentSortware(+this.ruanjian_yeji)
+        // return getPercentSortware(+this.ruanjian_yeji)
+        return this.tuandui_ruanjian_ticheng_bili
       },
 
       // 团队软件毛利
       ruanjian_maoli(){
-        let num = (+this.ruanjian_yeji) * getPercentNotSortware(+this.ruanjian_yeji)
+        let num = (+this.ruanjian_yeji) * (+this.tuandui_ruanjian_ticheng_bili)
+        // let num = (+this.ruanjian_yeji) * getPercentNotSortware(+this.ruanjian_yeji)
         return num - (num - num * this.kousui) * this.kousui
       },
 
       // 团队非软件毛利
       fei_ruanjian_maoli(){
-        let num = (+this.fei_ruanjian_yeji) * getPercentNotSortware(+this.fei_ruanjian_yeji)
+        let num = (+this.fei_ruanjian_yeji) * (+this.tuandui_fei_ruanjian_ticheng_bili)
+        // let num = (+this.fei_ruanjian_yeji) * getPercentNotSortware(+this.fei_ruanjian_yeji)
         return num - (num - num * this.kousui) * this.kousui
       },
 
